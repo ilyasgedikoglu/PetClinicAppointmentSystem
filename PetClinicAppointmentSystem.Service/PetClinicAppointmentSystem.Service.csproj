@@ -4,4 +4,15 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="3.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PetClinicAppointmentSystem.Service.Interfaces\PetClinicAppointmentSystem.Service.Interfaces.csproj" />
+    <ProjectReference Include="..\PetClinicAppointmentSystem.Shared\PetClinicAppointmentSystem.Shared.csproj" />
+    <ProjectReference Include="..\PetClinicAppointmentSystem.Repository.Interfaces\PetClinicAppointmentSystem.Repository.Interfaces.csproj" />
+  </ItemGroup>
+
 </Project>

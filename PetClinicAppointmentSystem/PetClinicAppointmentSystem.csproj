@@ -15,6 +15,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0" />
     <PackageReference Include="Quartz" Version="3.0.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
@@ -22,12 +23,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Middlewares\" />
+    <ProjectReference Include="..\PetClinicAppointmentSystem.Model\PetClinicAppointmentSystem.Model.csproj" />
+    <ProjectReference Include="..\PetClinicAppointmentSystem.Service.Interfaces\PetClinicAppointmentSystem.Service.Interfaces.csproj" />
+    <ProjectReference Include="..\PetClinicAppointmentSystem.Service\PetClinicAppointmentSystem.Service.csproj" />
+    <ProjectReference Include="..\PetClinicAppointmentSystem.Repository.Interfaces\PetClinicAppointmentSystem.Repository.Interfaces.csproj" />
+    <ProjectReference Include="..\PetClinicAppointmentSystem.Repository\PetClinicAppointmentSystem.Repository.csproj" />
+    <ProjectReference Include="..\PetClinicAppointmentSystem.Shared\PetClinicAppointmentSystem.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PetClinicAppointmentSystem.Model\PetClinicAppointmentSystem.Model.csproj" />
-    <ProjectReference Include="..\PetClinicAppointmentSystem.Service.Interfaces\PetClinicAppointmentSystem.Service.Interfaces.csproj" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
 
 </Project>
