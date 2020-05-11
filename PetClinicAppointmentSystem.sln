@@ -3,7 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetClinicAppointmentSystem", "PetClinicAppointmentSystem\PetClinicAppointmentSystem.csproj", "{2F3465B6-2967-4F75-8D2E-285D58ED5A82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetClinicAppointmentSystem", "PetClinicAppointmentSystem\PetClinicAppointmentSystem.csproj", "{2F3465B6-2967-4F75-8D2E-285D58ED5A82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetClinicAppointmentSystem.Model", "PetClinicAppointmentSystem.Model\PetClinicAppointmentSystem.Model.csproj", "{4D26D349-7E49-4354-9F64-432511864ABF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetClinicAppointmentSystem.Repository", "PetClinicAppointmentSystem.Repository\PetClinicAppointmentSystem.Repository.csproj", "{C3BC4B68-A006-4B81-A599-539AA1F007E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetClinicAppointmentSystem.Repository.Interfaces", "PetClinicAppointmentSystem.Repository.Interfaces\PetClinicAppointmentSystem.Repository.Interfaces.csproj", "{8EABB4FC-3B20-444A-9C3B-2EAA6518D5B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetClinicAppointmentSystem.Service", "PetClinicAppointmentSystem.Service\PetClinicAppointmentSystem.Service.csproj", "{305DD1E5-B955-45A1-9F17-A32977E29872}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetClinicAppointmentSystem.Service.Interfaces", "PetClinicAppointmentSystem.Service.Interfaces\PetClinicAppointmentSystem.Service.Interfaces.csproj", "{310609B5-18C6-41E2-9C0B-9C27AC85E358}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetClinicAppointmentSystem.Shared", "PetClinicAppointmentSystem.Shared\PetClinicAppointmentSystem.Shared.csproj", "{23E93FEB-123E-45D9-B6FF-924F953FE19C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +27,30 @@ Global
 		{2F3465B6-2967-4F75-8D2E-285D58ED5A82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F3465B6-2967-4F75-8D2E-285D58ED5A82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F3465B6-2967-4F75-8D2E-285D58ED5A82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D26D349-7E49-4354-9F64-432511864ABF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D26D349-7E49-4354-9F64-432511864ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D26D349-7E49-4354-9F64-432511864ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D26D349-7E49-4354-9F64-432511864ABF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3BC4B68-A006-4B81-A599-539AA1F007E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3BC4B68-A006-4B81-A599-539AA1F007E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3BC4B68-A006-4B81-A599-539AA1F007E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3BC4B68-A006-4B81-A599-539AA1F007E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EABB4FC-3B20-444A-9C3B-2EAA6518D5B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EABB4FC-3B20-444A-9C3B-2EAA6518D5B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EABB4FC-3B20-444A-9C3B-2EAA6518D5B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EABB4FC-3B20-444A-9C3B-2EAA6518D5B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{305DD1E5-B955-45A1-9F17-A32977E29872}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{305DD1E5-B955-45A1-9F17-A32977E29872}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{305DD1E5-B955-45A1-9F17-A32977E29872}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{305DD1E5-B955-45A1-9F17-A32977E29872}.Release|Any CPU.Build.0 = Release|Any CPU
+		{310609B5-18C6-41E2-9C0B-9C27AC85E358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{310609B5-18C6-41E2-9C0B-9C27AC85E358}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{310609B5-18C6-41E2-9C0B-9C27AC85E358}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{310609B5-18C6-41E2-9C0B-9C27AC85E358}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23E93FEB-123E-45D9-B6FF-924F953FE19C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23E93FEB-123E-45D9-B6FF-924F953FE19C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23E93FEB-123E-45D9-B6FF-924F953FE19C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23E93FEB-123E-45D9-B6FF-924F953FE19C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
