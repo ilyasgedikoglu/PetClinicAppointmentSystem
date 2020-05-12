@@ -10,8 +10,6 @@ namespace PetClinicAppointmentSystem.Shared.DTO
     public class UserDTO : BaseDTO
     {
         [DataMember]
-        public int Id { get; set; }
-        [DataMember]
         public string Name { get; set; }
         [DataMember]
         public string Surname { get; set; }

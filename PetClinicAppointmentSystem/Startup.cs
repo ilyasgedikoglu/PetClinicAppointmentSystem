@@ -169,13 +169,13 @@ namespace PetClinicAppointmentSystem
             services.AddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<YetkiKontrol>();
 
-            //services.AddTransient<IRepository<User>, Repository<User>>();
-            //services.AddTransient<IUserRepository, UserRepository>();
-            //services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IRepository<User>, Repository<User>>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserService, UserService>();
 
-            //services.AddTransient<IRepository<Yetki>, Repository<Yetki>>();
-            //services.AddTransient<IYetkiRepository, YetkiRepository>();
-            //services.AddTransient<IYetkiService, YetkiService>();
+            services.AddTransient<IRepository<Yetki>, Repository<Yetki>>();
+            services.AddTransient<IYetkiRepository, YetkiRepository>();
+            services.AddTransient<IYetkiService, YetkiService>();
 
             //services.AddTransient<IRepository<Pet>, Repository<Pet>>();
             //services.AddTransient<IPetRepository, PetRepository>();

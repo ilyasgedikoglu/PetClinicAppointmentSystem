@@ -11,7 +11,7 @@ namespace PetClinicAppointmentSystem.Shared.DTO
     public class GirisDTO : BaseDTO
     {
         [DataMember]
-        public int KullaniciId { get; set; }
+        public int UserId { get; set; }
 
         [DataMember]
         public string Token { get; set; }

@@ -24,8 +24,6 @@ namespace PetClinicAppointmentSystem.Repository
         public int Create(GirisDTO dto)
         {
             var entity = ModelMapper.Mapper.Map<Giris>(dto);
-            entity.CreatedDate = DateTime.Now;
-            entity.Guid = Guid.NewGuid();
             entity.User = null;
             entity.EntityState = EntityState.Added;
             return _girisRepository.Save(entity);
@@ -35,6 +33,7 @@ namespace PetClinicAppointmentSystem.Repository
         {
             var entity = _girisRepository.GetSingle(x => x.Id == id && !x.Deleted);
             entity.Deleted = true;
+            entity.Actived = false;
             entity.EntityState = EntityState.Modified;
             _girisRepository.Save(entity);
         }
