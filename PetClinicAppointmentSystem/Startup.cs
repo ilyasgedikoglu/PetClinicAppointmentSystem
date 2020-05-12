@@ -88,7 +88,7 @@ namespace PetClinicAppointmentSystem
                 });
 
                 c.DocumentFilter<SwaggerSecurityDocumentFilter>();
-
+                c.OperationFilter<DosyaYuklemeOperationFilter>();
             });
 
 

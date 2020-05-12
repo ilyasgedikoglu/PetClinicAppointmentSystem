@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -191,6 +193,8 @@ namespace PetClinicAppointmentSystem.Controllers
 
             var sonuc = new ResultDTO();
 
+            var picturePath = Path.Combine("Assets", "defaultUser.jpeg");
+
             var tuzlama = _userService.GetTuzlamaDegeri();
             var kullaniciDTO = new UserDTO()
             {
@@ -203,7 +207,8 @@ namespace PetClinicAppointmentSystem.Controllers
                 Deleted = false,
                 TuzlamaDegeri = tuzlama,
                 Password = _userService.Sifrele(request.Password, tuzlama),
-                YetkiId = (int)Yetkiler.USER
+                YetkiId = (int)Yetkiler.USER,
+                Resim = picturePath
             };
 
             var kullaniciId = _userService.Create(kullaniciDTO);
