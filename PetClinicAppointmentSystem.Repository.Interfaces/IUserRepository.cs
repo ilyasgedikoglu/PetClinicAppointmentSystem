@@ -11,5 +11,6 @@ namespace PetClinicAppointmentSystem.Repository.Interfaces
         UserDTO GetByKullaniciAdi(string kullaniciAdi);
         string GetByTuzlamaDegeri(string kullaniciAdi);
         bool KullaniciYetkiKontrol(int kullaniciId, int[] yetkiler);
+        List<UserDTO> GetAllUsers();
     }
 }

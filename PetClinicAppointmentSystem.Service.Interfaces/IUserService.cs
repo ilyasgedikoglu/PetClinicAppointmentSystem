@@ -16,7 +16,7 @@ namespace PetClinicAppointmentSystem.Service.Interfaces
         void Delete(int id);
         string Sifrele(string metin, string tuzlamaDegeri);
         string GetTuzlamaDegeri();
-
         bool KullaniciYetkiKontrol(int kullaniciId, int[] yetkiler);
+        List<UserDTO> GetAllUsers();
     }
 }

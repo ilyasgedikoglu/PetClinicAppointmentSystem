@@ -101,7 +101,7 @@ namespace PetClinicAppointmentSystem.Repository
             var user = _userRepository.GetSingle(u => !u.Deleted && u.Guid == guid, y => y.Yetki);
             if (user == null)
             {
-                throw new PetClinicAppointmentNotFoundException("Kullanıcı bulunamadı!");
+                throw new PetClinicAppointmentNotFoundException("User not found!");
             }
             return ModelMapper.Mapper.Map<UserDTO>(user);
         }
@@ -114,6 +114,13 @@ namespace PetClinicAppointmentSystem.Repository
                 return false;
             }
             return true;
+        }
+
+        public List<UserDTO> GetAllUsers()
+        {
+            var users = _context.Users.Where(u => !u.Deleted).Include(x=>x.Yetki).AsNoTracking().ToList();
+            
+            return ModelMapper.Mapper.Map<List<UserDTO>>(users);
         }
     }
 }

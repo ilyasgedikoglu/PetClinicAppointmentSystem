@@ -91,5 +91,10 @@ namespace PetClinicAppointmentSystem.Service
         {
             return _userRepository.KullaniciYetkiKontrol(kullaniciId, yetkiler);
         }
+
+        public List<UserDTO> GetAllUsers()
+        {
+            return _userRepository.GetAllUsers();
+        }
     }
 }

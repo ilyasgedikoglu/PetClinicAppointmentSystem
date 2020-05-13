@@ -25,7 +25,7 @@ namespace PetClinicAppointmentSystem.Repository
 
         public PetDTO GetByGuid(Guid guid)
         {
-            var entity = _context.Pets.Where(x => x.Guid == guid && !x.Deleted).AsNoTracking().FirstOrDefault();
+            var entity = _context.Pets.Where(x => x.Guid == guid && !x.Deleted).Include(x=>x.User).AsNoTracking().FirstOrDefault();
 
             var dto = ModelMapper.Mapper.Map<PetDTO>(entity);
             return dto;
@@ -59,6 +59,14 @@ namespace PetClinicAppointmentSystem.Repository
             var entity = ModelMapper.Mapper.Map<Pet>(dto);
             entity.EntityState = EntityState.Modified;
             return _petRepository.Save(entity);
+        }
+
+        public List<PetDTO> GetAllPets()
+        {
+            var entities = _context.Pets.Where(x => !x.Deleted && x.Actived).Include(x => x.User).AsNoTracking()
+                .ToList();
+
+            return ModelMapper.Mapper.Map<List<PetDTO>>(entities);
         }
     }
 }
