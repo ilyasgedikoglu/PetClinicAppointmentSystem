@@ -7,5 +7,7 @@ namespace PetClinicAppointmentSystem.Repository.Interfaces
 {
     public interface IAppointmentRepository : ICrud<AppointmentDTO>
     {
+        List<AppointmentDTO> GetAllAppointments();
+        List<AppointmentDTO> GetUserAppointments(Guid userGuid);
     }
 }

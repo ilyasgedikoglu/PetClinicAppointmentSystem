@@ -24,8 +24,7 @@ namespace PetClinicAppointmentSystem.Repository
 
         public AppointmentDTO GetByGuid(Guid guid)
         {
-            //var entity = _yetkiRepository.GetSingle(x => x.Guid == guid && !x.Silindi);
-            var entity = _context.Appointments.Where(x => x.Guid == guid && !x.Deleted).AsNoTracking().FirstOrDefault();
+            var entity = _context.Appointments.Where(x => x.Guid == guid && !x.Deleted).Include(x=>x.User).Include(x=>x.Pet).AsNoTracking().FirstOrDefault();
 
             var dto = ModelMapper.Mapper.Map<AppointmentDTO>(entity);
             return dto;
@@ -59,6 +58,19 @@ namespace PetClinicAppointmentSystem.Repository
             var entity = ModelMapper.Mapper.Map<Appointment>(dto);
             entity.EntityState = EntityState.Modified;
             return _appointmentRepository.Save(entity);
+        }
+
+        public List<AppointmentDTO> GetAllAppointments()
+        {
+            var entities = _context.Appointments.Where(x => !x.Deleted).Include(x=>x.User).Include(x => x.Pet).AsNoTracking().ToList();
+            return ModelMapper.Mapper.Map<List<AppointmentDTO>>(entities);
+        }
+
+        public List<AppointmentDTO> GetUserAppointments(Guid userGuid)
+        {
+            var user = _context.Users.FirstOrDefault(x => !x.Deleted && x.Guid == userGuid);
+            var entities = _context.Appointments.Where(x => !x.Deleted && x.UserId == user.Id).Include(x => x.User).Include(x => x.Pet).AsNoTracking().ToList();
+            return ModelMapper.Mapper.Map<List<AppointmentDTO>>(entities);
         }
     }
 }

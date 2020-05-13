@@ -40,5 +40,15 @@ namespace PetClinicAppointmentSystem.Service
         {
             return _appointmentRepository.Update(dto);
         }
+
+        public List<AppointmentDTO> GetAllAppointments()
+        {
+            return _appointmentRepository.GetAllAppointments();
+        }
+
+        public List<AppointmentDTO> GetUserAppointments(Guid userGuid)
+        {
+            return _appointmentRepository.GetUserAppointments(userGuid);
+        }
     }
 }

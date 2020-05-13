@@ -13,7 +13,6 @@ namespace PetClinicAppointmentSystem.Model.Entity
         [Key]
         public int Id { get; set; }
         public DateTime AppointmentTime { get; set; }
-        public int Time { get; set; }
         public int PetId { get; set; }
         public virtual Pet Pet { get; set; }
 

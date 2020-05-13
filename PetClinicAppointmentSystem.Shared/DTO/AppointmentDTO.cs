@@ -12,8 +12,6 @@ namespace PetClinicAppointmentSystem.Shared.DTO
         [DataMember]
         public DateTime AppointmentTime { get; set; }
         [DataMember]
-        public int Time { get; set; }
-        [DataMember]
         public int PetId { get; set; }
         [DataMember]
         public virtual PetDTO Pet { get; set; }

@@ -177,17 +177,17 @@ namespace PetClinicAppointmentSystem
             services.AddTransient<IYetkiRepository, YetkiRepository>();
             services.AddTransient<IYetkiService, YetkiService>();
 
-            //services.AddTransient<IRepository<Pet>, Repository<Pet>>();
-            //services.AddTransient<IPetRepository, PetRepository>();
-            //services.AddTransient<IPetService, PetService>();
+            services.AddTransient<IRepository<Pet>, Repository<Pet>>();
+            services.AddTransient<IPetRepository, PetRepository>();
+            services.AddTransient<IPetService, PetService>();
 
-            //services.AddTransient<IRepository<Appointment>, Repository<Appointment>>();
-            //services.AddTransient<IAppointmentRepository, AppointmentRepository>();
-            //services.AddTransient<IAppointmentService, AppointmentService>();
+            services.AddTransient<IRepository<Appointment>, Repository<Appointment>>();
+            services.AddTransient<IAppointmentRepository, AppointmentRepository>();
+            services.AddTransient<IAppointmentService, AppointmentService>();
 
-            //services.AddTransient<IRepository<AvailableAppointmentTime>, Repository<AvailableAppointmentTime>>();
-            //services.AddTransient<IAvailableAppointmentRepository, AvailableAppointmentRepository>();
-            //services.AddTransient<IAvailableAppointmentService, AvailableAppointmentService>();
+            services.AddTransient<IRepository<AvailableAppointmentTime>, Repository<AvailableAppointmentTime>>();
+            services.AddTransient<IAvailableAppointmentRepository, AvailableAppointmentRepository>();
+            services.AddTransient<IAvailableAppointmentService, AvailableAppointmentService>();
 
             services.AddScoped<IRepository<Giris>, Repository<Giris>>();
             services.AddScoped<IGirisRepository, GirisRepository>();
