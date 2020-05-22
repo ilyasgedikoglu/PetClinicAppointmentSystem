@@ -40,5 +40,10 @@ namespace PetClinicAppointmentSystem.Service
         {
             return _availableAppointmentRepository.Update(dto);
         }
+
+        public List<AvailableAppointmentTimeDTO> GetAllAvailableAppointmentTimes()
+        {
+            return _availableAppointmentRepository.GetAllAvailableAppointmentTimes();
+        }
     }
 }

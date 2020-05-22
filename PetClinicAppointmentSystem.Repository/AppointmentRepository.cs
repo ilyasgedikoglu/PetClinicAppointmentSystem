@@ -62,15 +62,29 @@ namespace PetClinicAppointmentSystem.Repository
 
         public List<AppointmentDTO> GetAllAppointments()
         {
-            var entities = _context.Appointments.Where(x => !x.Deleted).Include(x=>x.User).Include(x => x.Pet).AsNoTracking().ToList();
+            var entities = _context.Appointments.Where(x => !x.Deleted && x.AppointmentTime >= DateTime.Now).Include(x=>x.User).Include(x => x.Pet).AsNoTracking().ToList();
             return ModelMapper.Mapper.Map<List<AppointmentDTO>>(entities);
         }
 
         public List<AppointmentDTO> GetUserAppointments(Guid userGuid)
         {
             var user = _context.Users.FirstOrDefault(x => !x.Deleted && x.Guid == userGuid);
-            var entities = _context.Appointments.Where(x => !x.Deleted && x.UserId == user.Id).Include(x => x.User).Include(x => x.Pet).AsNoTracking().ToList();
+            var entities = _context.Appointments.Where(x => !x.Deleted && x.UserId == user.Id && x.AppointmentTime >= DateTime.Now).Include(x => x.User).Include(x => x.Pet).AsNoTracking().ToList();
             return ModelMapper.Mapper.Map<List<AppointmentDTO>>(entities);
+        }
+
+        public AppointmentDTO GetByAppointment(Guid petGuid, Guid availableAppointmentGuid)
+        {
+            var availableAppointment =
+                _context.AvailableAppointmentTimes.FirstOrDefault(x =>
+                    !x.Deleted && x.Guid == availableAppointmentGuid);
+
+            var pet = _context.Pets.FirstOrDefault(x =>
+                !x.Deleted && x.Guid == petGuid);
+
+            var entity = _context.Appointments.Where(x => !x.Deleted && x.AppointmentTime == availableAppointment.AppointmentTime && x.PetId == pet.Id);
+            var dto = ModelMapper.Mapper.Map<AppointmentDTO>(entity);
+            return dto;
         }
     }
 }

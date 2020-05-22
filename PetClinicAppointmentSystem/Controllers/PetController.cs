@@ -111,6 +111,11 @@ namespace PetClinicAppointmentSystem.Controllers
         {
             var sonuc = new ResultDTO();
 
+            if (request == null)
+            {
+                throw new PetClinicAppointmentBadRequestException("You have not sent any data!");
+            }
+
             if (string.IsNullOrEmpty(request.Name))
             {
                 throw new PetClinicAppointmentBadRequestException("Pet name cannot be empty!");

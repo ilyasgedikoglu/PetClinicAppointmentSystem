@@ -207,6 +207,12 @@ namespace PetClinicAppointmentSystem.Controllers
                 throw new PetClinicAppointmentNotFoundException("Admin has not created such an appointment time. Please send another appointment time!");
             }
 
+            var appointmentVarMi = _appointmentService.GetByAppointment(request.PetGuid, request.AvailableAppointmentTimeGuid);
+            if (appointmentVarMi != null)
+            {
+                throw new PetClinicAppointmentBadRequestException("Such an appointment already exists!");
+            }
+
             var dto = new AppointmentDTO()
             {
                 Guid = Guid.NewGuid(),
@@ -302,6 +308,12 @@ namespace PetClinicAppointmentSystem.Controllers
             if (availableAppointment == null)
             {
                 throw new PetClinicAppointmentNotFoundException("Admin has not created such an appointment time. Please send another appointment time!");
+            }
+
+            var appointmentVarMi = _appointmentService.GetByAppointment(request.PetGuid, request.AvailableAppointmentTimeGuid);
+            if (appointmentVarMi != null)
+            {
+                throw new PetClinicAppointmentBadRequestException("Such an appointment already exists!");
             }
 
             appointment.AppointmentTime = availableAppointment.AppointmentTime;

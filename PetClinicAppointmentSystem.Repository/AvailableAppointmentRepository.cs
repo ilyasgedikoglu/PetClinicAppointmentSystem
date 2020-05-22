@@ -59,5 +59,11 @@ namespace PetClinicAppointmentSystem.Repository
             entity.EntityState = EntityState.Modified;
             return _availableAppointmentRepository.Save(entity);
         }
+
+        public List<AvailableAppointmentTimeDTO> GetAllAvailableAppointmentTimes()
+        {
+            var entities = _availableAppointmentRepository.GetSingle(x => !x.Deleted && x.AppointmentTime >= DateTime.Now);
+            return ModelMapper.Mapper.Map<List<AvailableAppointmentTimeDTO>>(entities);
+        }
     }
 }

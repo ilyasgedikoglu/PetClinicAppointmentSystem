@@ -12,5 +12,6 @@ namespace PetClinicAppointmentSystem.Service.Interfaces
         int Create(AvailableAppointmentTimeDTO dto);
         void Delete(int id);
         int Update(AvailableAppointmentTimeDTO dto);
+        List<AvailableAppointmentTimeDTO> GetAllAvailableAppointmentTimes();
     }
 }
