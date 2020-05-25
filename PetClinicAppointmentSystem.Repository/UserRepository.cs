@@ -118,7 +118,7 @@ namespace PetClinicAppointmentSystem.Repository
 
         public List<UserDTO> GetAllUsers()
         {
-            var users = _context.Users.Where(u => !u.Deleted).Include(x=>x.Yetki).AsNoTracking().ToList();
+            var users = _context.Users.Where(u => !u.Deleted && u.YetkiId != 1).Include(x=>x.Yetki).AsNoTracking().ToList();
             
             return ModelMapper.Mapper.Map<List<UserDTO>>(users);
         }
