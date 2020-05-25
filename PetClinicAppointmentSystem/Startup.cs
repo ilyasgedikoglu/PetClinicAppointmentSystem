@@ -123,14 +123,6 @@ namespace PetClinicAppointmentSystem
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
-
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "Uploads")),
-                RequestPath = "/Uploads"
-            });
-
             app.UseCors("EnableCORS");
 
             if (env.IsDevelopment())

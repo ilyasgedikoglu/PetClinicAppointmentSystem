@@ -178,105 +178,79 @@ namespace PetClinicAppointmentSystem.Controllers
             return Ok(sonuc);
         }
 
-        //[HttpPut]
-        //[Route("{petGuid:GUID}")]
-        //[TypeFilter(typeof(YetkiKontrol), Arguments = new object[] { new int[] { (int)Yetkiler.USER } })]
-        //public ActionResult PetUpdate(Guid petGuid, [FromForm] PetCO request, [FromForm(Name = "file")] IFormFile file)
-        //{
-        //    var sonuc = new ResultDTO();
+        [HttpPut]
+        [Route("{petGuid:GUID}")]
+        [TypeFilter(typeof(YetkiKontrol), Arguments = new object[] { new int[] { (int)Yetkiler.USER } })]
+        public ActionResult PetUpdate(Guid petGuid, [FromForm] PetCO request)
+        {
+            var sonuc = new ResultDTO();
 
-        //    if (request == null)
-        //    {
-        //        throw new PetClinicAppointmentBadRequestException("You have not sent any data!");
-        //    }
+            if (request == null)
+            {
+                throw new PetClinicAppointmentBadRequestException("You have not sent any data!");
+            }
 
-        //    if (petGuid == default(Guid))
-        //    {
-        //        throw new PetClinicAppointmentBadRequestException("Submit valid pet information!");
-        //    }
+            if (petGuid == default(Guid))
+            {
+                throw new PetClinicAppointmentBadRequestException("Submit valid pet information!");
+            }
 
-        //    var pet = _petService.GetByGuid(petGuid);
-        //    if (pet == null)
-        //    {
-        //        throw new PetClinicAppointmentNotFoundException("Pet not found!");
-        //    }
+            var pet = _petService.GetByGuid(petGuid);
+            if (pet == null)
+            {
+                throw new PetClinicAppointmentNotFoundException("Pet not found!");
+            }
 
-        //    if (string.IsNullOrEmpty(request.Name))
-        //    {
-        //        throw new PetClinicAppointmentBadRequestException("Pet name cannot be empty!");
-        //    }
+            if (string.IsNullOrEmpty(request.Name))
+            {
+                throw new PetClinicAppointmentBadRequestException("Pet name cannot be empty!");
+            }
 
-        //    if (string.IsNullOrEmpty(request.PlaceOfBirth))
-        //    {
-        //        throw new PetClinicAppointmentBadRequestException("Pet place of birth cannot be empty!");
-        //    }
+            if (string.IsNullOrEmpty(request.PlaceOfBirth))
+            {
+                throw new PetClinicAppointmentBadRequestException("Pet place of birth cannot be empty!");
+            }
 
-        //    if (string.IsNullOrEmpty(request.Birthdate.ToLongDateString()))
-        //    {
-        //        throw new PetClinicAppointmentBadRequestException("Pet birthdate cannot be empty!");
-        //    }
+            if (string.IsNullOrEmpty(request.Birthdate.ToLongDateString()))
+            {
+                throw new PetClinicAppointmentBadRequestException("Pet birthdate cannot be empty!");
+            }
 
-        //    if (request.UserGuid == null)
-        //    {
-        //        throw new PetClinicAppointmentBadRequestException("User guid cannot be empty!");
-        //    }
+            if (request.UserGuid == null)
+            {
+                throw new PetClinicAppointmentBadRequestException("User guid cannot be empty!");
+            }
 
-        //    if (file != null)
-        //    {
-        //        var uzantiAdi = Path.GetExtension(file.FileName);
-        //        if (string.IsNullOrEmpty(uzantiAdi))
-        //        {
-        //            throw new PetClinicAppointmentBadRequestException("File without extension cannot be uploaded!");
-        //        }
+            var user = _userService.GetByGuid(request.UserGuid);
+            if (user == null)
+            {
+                throw new PetClinicAppointmentNotFoundException("User not found!");
+            }
 
-        //        var klasorAdi = Guid.NewGuid().ToString();
-        //        var yeniDosyaAdi = Guid.NewGuid() + uzantiAdi;
+            pet.UserId = user.Id;
+            pet.DogumTarihi = request.Birthdate;
+            pet.DogumYeri = request.PlaceOfBirth;
+            pet.Name = request.Name;
 
-        //        var webRoot = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
+            var durum = _petService.Update(pet);
+            if (durum > 0)
+            {
+                sonuc.Status = EDurum.SUCCESS;
+                sonuc.Message.Add(new MessageDTO()
+                {
+                    Code = HttpStatusCode.OK,
+                    Status = EDurum.SUCCESS,
+                    Description = "The pet has been successfully updated."
+                });
+                sonuc.Data = new { pet = new { pet.Guid } };
+            }
+            else
+            {
+                throw new PetClinicAppointmentBadRequestException("The pet could not be updated!");
+            }
 
-        //        var path = Path.Combine(webRoot, klasorAdi);
-
-        //        if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-
-        //        var filePath = Path.Combine("Uploads", klasorAdi, yeniDosyaAdi);
-        //        using (var stream = new FileStream(filePath, FileMode.Create))
-        //        {
-        //            file.CopyTo(stream);
-        //        }
-
-        //        pet.Resim = filePath;
-        //    }
-
-        //    var user = _userService.GetByGuid(request.UserGuid);
-        //    if (user == null)
-        //    {
-        //        throw new PetClinicAppointmentNotFoundException("User not found!");
-        //    }
-
-        //    pet.UserId = user.Id;
-        //    pet.DogumTarihi = request.Birthdate;
-        //    pet.DogumYeri = request.PlaceOfBirth;
-        //    pet.Name = request.Name;
-
-        //    var durum = _petService.Update(pet);
-        //    if (durum > 0)
-        //    {
-        //        sonuc.Status = EDurum.SUCCESS;
-        //        sonuc.Message.Add(new MessageDTO()
-        //        {
-        //            Code = HttpStatusCode.OK,
-        //            Status = EDurum.SUCCESS,
-        //            Description = "The pet has been successfully updated."
-        //        });
-        //        sonuc.Data = new { pet = new { pet.Guid } };
-        //    }
-        //    else
-        //    {
-        //        throw new PetClinicAppointmentBadRequestException("The pet could not be updated!");
-        //    }
-
-        //    return Ok(sonuc);
-        //}
+            return Ok(sonuc);
+        }
 
         [HttpDelete("{petGuid:GUID}")]
         [TypeFilter(typeof(YetkiKontrol), Arguments = new object[] { new int[] { (int)Yetkiler.USER, (int)Yetkiler.ADMIN } })]
