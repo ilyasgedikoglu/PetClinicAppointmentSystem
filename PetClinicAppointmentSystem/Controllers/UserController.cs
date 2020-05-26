@@ -142,7 +142,7 @@ namespace PetClinicAppointmentSystem.Controllers
                 throw new PetClinicAppointmentBadRequestException("Surname is not null!");
             }
 
-            if (!string.IsNullOrEmpty(request.Email))
+            if (string.IsNullOrEmpty(request.Email))
             {
                 throw new PetClinicAppointmentBadRequestException("Email is not null!");
             }

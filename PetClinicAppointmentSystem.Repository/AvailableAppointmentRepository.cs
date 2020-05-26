@@ -62,7 +62,7 @@ namespace PetClinicAppointmentSystem.Repository
 
         public List<AvailableAppointmentTimeDTO> GetAllAvailableAppointmentTimes()
         {
-            var entities = _availableAppointmentRepository.GetSingle(x => !x.Deleted && x.AppointmentTime >= DateTime.Now);
+            var entities = _context.AvailableAppointmentTimes.Where(x => !x.Deleted && x.AppointmentTime >= DateTime.Now).AsNoTracking().ToList();
             return ModelMapper.Mapper.Map<List<AvailableAppointmentTimeDTO>>(entities);
         }
     }
