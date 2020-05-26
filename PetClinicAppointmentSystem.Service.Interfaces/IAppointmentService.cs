@@ -14,6 +14,6 @@ namespace PetClinicAppointmentSystem.Service.Interfaces
         int Update(AppointmentDTO dto);
         List<AppointmentDTO> GetAllAppointments();
         List<AppointmentDTO> GetUserAppointments(Guid userGuid);
-        AppointmentDTO GetByAppointment(Guid petGuid, Guid availableAppointmentGuid);
+        List<AppointmentDTO> GetByAppointment(Guid petGuid, Guid availableAppointmentGuid);
     }
 }

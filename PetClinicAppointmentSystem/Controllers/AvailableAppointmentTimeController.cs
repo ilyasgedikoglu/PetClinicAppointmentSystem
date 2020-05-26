@@ -46,6 +46,13 @@ namespace PetClinicAppointmentSystem.Controllers
                 throw new PetClinicAppointmentNotFoundException("Available appointment time not found!");
             }
 
+            if (availableAppointmentTime.AppointmentTime > DateTime.Now)
+            {
+                _availableAppointmentService.Delete(availableAppointmentTime.Id);
+
+                throw new PetClinicAppointmentNotFoundException("Available appointment time not found!");
+            }
+
             sonuc.Status = EDurum.SUCCESS;
             sonuc.Message.Add(new MessageDTO()
             {
@@ -72,6 +79,16 @@ namespace PetClinicAppointmentSystem.Controllers
         public ActionResult GetAllAvailableAppointmentTimes()
         {
             var sonuc = new ResultDTO();
+
+            var deletedAvailableAppointmentTimes = _availableAppointmentService.GetAllAvailableAppointmentTimes();
+
+            foreach (var item in deletedAvailableAppointmentTimes)
+            {
+                if (item.AppointmentTime > DateTime.Now)
+                {
+                    _availableAppointmentService.Delete(item.Id);
+                }
+            }
 
             var availableAppointmentTimes = _availableAppointmentService.GetAllAvailableAppointmentTimes();
 

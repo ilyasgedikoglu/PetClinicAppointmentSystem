@@ -9,6 +9,6 @@ namespace PetClinicAppointmentSystem.Repository.Interfaces
     {
         List<AppointmentDTO> GetAllAppointments();
         List<AppointmentDTO> GetUserAppointments(Guid userGuid);
-        AppointmentDTO GetByAppointment(Guid petGuid, Guid availableAppointmentGuid);
+        List<AppointmentDTO> GetByAppointment(Guid petGuid, Guid availableAppointmentGuid);
     }
 }

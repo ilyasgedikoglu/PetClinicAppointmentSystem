@@ -37,13 +37,20 @@ namespace PetClinicAppointmentSystem.Controllers
         [HttpGet]
         [Route("{appointmentGuid:GUID}")]
         [TypeFilter(typeof(YetkiKontrol), Arguments = new object[] { new int[] { (int)Yetkiler.ADMIN, (int)Yetkiler.USER } })]
-        public ActionResult GetAppointment(Guid petGuid)
+        public ActionResult GetAppointment(Guid appointmentGuid)
         {
             var sonuc = new ResultDTO();
 
-            var appointment = _appointmentService.GetByGuid(petGuid);
+            var appointment = _appointmentService.GetByGuid(appointmentGuid);
             if (appointment == null)
             {
+                throw new PetClinicAppointmentNotFoundException("Appointment not found!");
+            }
+
+            if (appointment.AppointmentTime > DateTime.Now)
+            {
+                _appointmentService.Delete(appointment.Id);
+
                 throw new PetClinicAppointmentNotFoundException("Appointment not found!");
             }
 
@@ -88,6 +95,16 @@ namespace PetClinicAppointmentSystem.Controllers
         {
             var sonuc = new ResultDTO();
 
+            var deletedAppointments = _appointmentService.GetAllAppointments();
+
+            foreach (var item in deletedAppointments)
+            {
+                if (item.AppointmentTime > DateTime.Now)
+                {
+                    _appointmentService.Delete(item.Id);
+                }
+            }
+
             var appointments = _appointmentService.GetAllAppointments();
 
             sonuc.Status = EDurum.SUCCESS;
@@ -125,7 +142,7 @@ namespace PetClinicAppointmentSystem.Controllers
         }
 
         [HttpGet]
-        [Route("GetUserAppointments")]
+        [Route("GetUserAppointments/{userGuid:GUID}")]
         [TypeFilter(typeof(YetkiKontrol), Arguments = new object[] { new int[] { (int)Yetkiler.USER, (int)Yetkiler.ADMIN } })]
         public ActionResult GetUserAppointments(Guid userGuid)
         {
@@ -140,6 +157,16 @@ namespace PetClinicAppointmentSystem.Controllers
             if (user == null)
             {
                 throw new PetClinicAppointmentNotFoundException("User not found!");
+            }
+
+            var deletedAppointments = _appointmentService.GetUserAppointments(userGuid);
+
+            foreach (var item in deletedAppointments)
+            {
+                if (item.AppointmentTime > DateTime.Now)
+                {
+                    _appointmentService.Delete(item.Id);
+                }
             }
 
             var appointments = _appointmentService.GetUserAppointments(userGuid);
@@ -208,7 +235,7 @@ namespace PetClinicAppointmentSystem.Controllers
             }
 
             var appointmentVarMi = _appointmentService.GetByAppointment(request.PetGuid, request.AvailableAppointmentTimeGuid);
-            if (appointmentVarMi != null)
+            if (appointmentVarMi.Count > 0)
             {
                 throw new PetClinicAppointmentBadRequestException("Such an appointment already exists!");
             }
@@ -221,12 +248,16 @@ namespace PetClinicAppointmentSystem.Controllers
                 CreatedDate = DateTime.Now,
                 AppointmentTime = availableAppointment.AppointmentTime,
                 UserId = pet.UserId,
-                PetId = pet.Id
+                PetId = pet.Id,
+                Pet = null,
+                User = null
             };
 
             var durum = _appointmentService.Create(dto);
             if (durum > 0)
             {
+                var appo = _appointmentService.GetById(durum);
+
                 sonuc.Status = EDurum.SUCCESS;
                 sonuc.Message.Add(new MessageDTO()
                 {
@@ -238,20 +269,20 @@ namespace PetClinicAppointmentSystem.Controllers
                 {
                     appointment = new
                     {
-                        dto.Guid,
-                        dto.AppointmentTime,
+                        appo.Guid,
+                        appo.AppointmentTime,
                         pet = new
                         {
-                            dto.Pet.Guid,
-                            dto.Pet.Name,
-                            dto.Pet.DogumTarihi,
-                            dto.Pet.DogumYeri,
+                            appo.Pet.Guid,
+                            appo.Pet.Name,
+                            appo.Pet.DogumTarihi,
+                            appo.Pet.DogumYeri,
                             owner = new
                             {
-                                dto.User.Guid,
-                                dto.User.Name,
-                                dto.User.Surname,
-                                dto.User.Email
+                                appo.User.Guid,
+                                appo.User.Name,
+                                appo.User.Surname,
+                                appo.User.Email
                             }
                         }
                     }
@@ -311,7 +342,7 @@ namespace PetClinicAppointmentSystem.Controllers
             }
 
             var appointmentVarMi = _appointmentService.GetByAppointment(request.PetGuid, request.AvailableAppointmentTimeGuid);
-            if (appointmentVarMi != null)
+            if (appointmentVarMi.Count > 0)
             {
                 throw new PetClinicAppointmentBadRequestException("Such an appointment already exists!");
             }
@@ -319,6 +350,7 @@ namespace PetClinicAppointmentSystem.Controllers
             appointment.AppointmentTime = availableAppointment.AppointmentTime;
             appointment.PetId = pet.Id;
             appointment.UserId = pet.UserId;
+            appointment.Pet = null;
 
             var durum = _appointmentService.Update(appointment);
             if (durum > 0)
