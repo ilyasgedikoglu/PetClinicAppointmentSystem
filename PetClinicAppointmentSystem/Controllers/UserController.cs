@@ -96,7 +96,7 @@ namespace PetClinicAppointmentSystem.Controllers
             });
             sonuc.Data = new
             {
-                pets = users.Select(user => new
+                users = users.Select(user => new
                 {
                     user.Guid,
                     user.Name,
@@ -212,33 +212,6 @@ namespace PetClinicAppointmentSystem.Controllers
             });
 
             return Ok(sonuc);
-        }
-
-        [HttpGet]
-        [Route("GetUserPicture/{userGuid:GUID}")]
-        public FileStreamResult GetDosyaBilgileriByGuid(Guid userGuid)
-        {
-            if (userGuid == default(Guid))
-            {
-                throw new PetClinicAppointmentBadRequestException("Submit a valid user guid!");
-            }
-
-            var userVarMi = _userService.GetByGuid(userGuid);
-            if (userVarMi == null)
-            {
-                throw new PetClinicAppointmentNotFoundException("User not found!");
-            }
-
-            if (string.IsNullOrEmpty(userVarMi.Resim))
-            {
-                throw new PetClinicAppointmentNotFoundException("Picture path not found!");
-            }
-
-            FileStream dosya = System.IO.File.OpenRead(userVarMi.Resim); //Dokümanı okuma
-
-            var dokumanUzantiAciklama = "image/jpeg";
-
-            return new FileStreamResult(dosya, dokumanUzantiAciklama);
         }
     }
 }

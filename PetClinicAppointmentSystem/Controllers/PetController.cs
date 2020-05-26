@@ -32,7 +32,7 @@ namespace PetClinicAppointmentSystem.Controllers
 
         [HttpGet]
         [Route("{petGuid:GUID}")]
-        [TypeFilter(typeof(YetkiKontrol), Arguments = new object[] { new int[] { (int)Yetkiler.ADMIN } })]
+        [TypeFilter(typeof(YetkiKontrol), Arguments = new object[] { new int[] { (int)Yetkiler.ADMIN, (int)Yetkiler.USER } })]
         public ActionResult GetPet(Guid petGuid)
         {
             var sonuc = new ResultDTO();
@@ -231,6 +231,7 @@ namespace PetClinicAppointmentSystem.Controllers
             pet.DogumTarihi = request.Birthdate;
             pet.DogumYeri = request.PlaceOfBirth;
             pet.Name = request.Name;
+            pet.User = null;
 
             var durum = _petService.Update(pet);
             if (durum > 0)
@@ -275,33 +276,6 @@ namespace PetClinicAppointmentSystem.Controllers
             });
 
             return Ok(sonuc);
-        }
-
-        [HttpGet]
-        [Route("GetPetPicture/{petGuid:GUID}")]
-        public FileStreamResult GetDosyaBilgileriByGuid(Guid petGuid)
-        {
-            if (petGuid == default(Guid))
-            {
-                throw new PetClinicAppointmentBadRequestException("Submit a valid pet guid!");
-            }
-
-            var pet = _petService.GetByGuid(petGuid);
-            if (pet == null)
-            {
-                throw new PetClinicAppointmentNotFoundException("Pet not found!");
-            }
-
-            if (string.IsNullOrEmpty(pet.Resim))
-            {
-                throw new PetClinicAppointmentNotFoundException("Picture path not found!");
-            }
-
-            FileStream dosya = System.IO.File.OpenRead(pet.Resim); //Dokümanı okuma
-
-            var dokumanUzantiAciklama = "image/jpeg";
-
-            return new FileStreamResult(dosya, dokumanUzantiAciklama);
         }
     }
 }
