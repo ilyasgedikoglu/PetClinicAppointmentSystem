@@ -47,7 +47,7 @@ namespace PetClinicAppointmentSystem.Controllers
                 throw new PetClinicAppointmentNotFoundException("Appointment not found!");
             }
 
-            if (appointment.AppointmentTime > DateTime.Now)
+            if (appointment.AppointmentTime < DateTime.Now)
             {
                 _appointmentService.Delete(appointment.Id);
 
@@ -99,7 +99,7 @@ namespace PetClinicAppointmentSystem.Controllers
 
             foreach (var item in deletedAppointments)
             {
-                if (item.AppointmentTime > DateTime.Now)
+                if (item.AppointmentTime < DateTime.Now)
                 {
                     _appointmentService.Delete(item.Id);
                 }
@@ -163,7 +163,7 @@ namespace PetClinicAppointmentSystem.Controllers
 
             foreach (var item in deletedAppointments)
             {
-                if (item.AppointmentTime > DateTime.Now)
+                if (item.AppointmentTime < DateTime.Now)
                 {
                     _appointmentService.Delete(item.Id);
                 }
