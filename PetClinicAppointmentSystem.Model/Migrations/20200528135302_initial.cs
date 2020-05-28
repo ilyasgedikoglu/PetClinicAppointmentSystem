@@ -140,7 +140,6 @@ namespace PetClinicAppointmentSystem.Model.Migrations
                     Actived = table.Column<bool>(nullable: false),
                     Deleted = table.Column<bool>(nullable: false),
                     AppointmentTime = table.Column<DateTime>(nullable: false),
-                    Time = table.Column<int>(nullable: false),
                     PetId = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
                 },

@@ -10,7 +10,7 @@ using PetClinicAppointmentSystem.Model.Infrastructure;
 namespace PetClinicAppointmentSystem.Model.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20200511081643_initial")]
+    [Migration("20200528135302_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,9 +44,6 @@ namespace PetClinicAppointmentSystem.Model.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<int>("PetId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Time")
                         .HasColumnType("integer");
 
                     b.Property<int>("UserId")

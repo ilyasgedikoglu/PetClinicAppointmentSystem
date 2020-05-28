@@ -71,11 +71,11 @@ namespace PetClinicAppointmentSystem
                 {
                     Version = "v1",
                     Title = "SENG 448 Project API",
-                    Description = "ASP.NET Core Web API Pet Appointment System Project",
+                    Description = "ASP.NET Core Web API Pet Appointment System API Project",
                     TermsOfService = new Uri("https://www.cankaya.edu.tr/"),
                     Contact = new OpenApiContact
                     {
-                        Name = "Hande Aydın",
+                        Name = "Hande Aydın - Muazzez Aypek",
                         Email = "c1511410@student.cankaya.edu.tr",
                         Url = new Uri("https://www.cankaya.edu.tr/")
                     }
