@@ -47,7 +47,6 @@ namespace PetClinicAppointmentSystem.Controllers
         [Route("Login")]
         public async Task<IActionResult> Giris([FromForm] LoginCO request)
         {
-            var sonuc = new ResultDTO();
             if (request == null)
             {
                 throw new PetClinicAppointmentBadRequestException("Oturum açmak için kullanıcı adı ve şifresini giriniz!");
@@ -56,11 +55,6 @@ namespace PetClinicAppointmentSystem.Controllers
             if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
             {
                 throw new PetClinicAppointmentBadRequestException("Eksik parametre girdiniz!");
-            }
-
-            if (request.Email.Length > 64 || request.Password.Length > 64)
-            {
-                throw new PetClinicAppointmentBadRequestException("Kullanıcı adı veya şifresi çok uzun!");
             }
 
             UserDTO user = null;
@@ -110,10 +104,11 @@ namespace PetClinicAppointmentSystem.Controllers
                 CreatedDate = DateTime.Now
             };
             var girisId = _girisService.Create(giris);
-            if (girisId < 0)
+            if (girisId <= 0)
             {
                 throw new PetClinicAppointmentBadRequestException("Login Failed!");
             }
+            var sonuc = new ResultDTO();
             if (girisId > 0)
             {
                 sonuc.Message.Add(new MessageDTO()
