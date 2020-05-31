@@ -86,9 +86,6 @@ namespace PetClinicAppointmentSystem
                     Name = "Authorization",
                     In = ParameterLocation.Header
                 });
-
-                c.DocumentFilter<SwaggerSecurityDocumentFilter>();
-                c.OperationFilter<DosyaYuklemeOperationFilter>();
             });
 
 
