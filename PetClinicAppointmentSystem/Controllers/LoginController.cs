@@ -45,7 +45,7 @@ namespace PetClinicAppointmentSystem.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("Login")]
-        public async Task<IActionResult> Giris([FromForm] LoginCO request)
+        public ActionResult Giris([FromForm] LoginCO request)
         {
             if (request == null)
             {

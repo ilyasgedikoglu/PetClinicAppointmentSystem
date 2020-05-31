@@ -101,7 +101,7 @@ namespace PetClinicAppointmentSystem.Controllers
             });
             sonuc.Data = new
             {
-                appointments = availableAppointmentTimes.Select(availableAppointmentTime => new
+                availableAppointmentTimes = availableAppointmentTimes.Select(availableAppointmentTime => new
                 {
                     availableAppointmentTime.Guid,
                     availableAppointmentTime.AppointmentTime,
